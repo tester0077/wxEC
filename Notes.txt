@@ -1,0 +1,97 @@
+wxEC Enum Compiler Notes
+
+test command line:
+  -p  -v  -x -i $(InputDir) -o $(InputDir)\test enums.e  enums.e 
+	
+Usage:	
+wxEC - an Enum Compiler
+ A. Wiegert (c)2010
+ Version 0.1 - Build: 15
+ linked with wxWidgets 2.8.10
+
+
+
+ These classes extend the standard C++ enum concept by:
+  - allowing the enum to be read and assigned to as a string.
+  - ensuring only declared values are used by automatically selecting
+    a default/unknown value if an assigned value is not found.
+  - initialising the enum to a default/unknown value on creation.
+
+ Run with the -d switch for more details.
+
+ Note: Line endings are auto-adjusted to the detected OS.
+
+ This utility is free.
+
+Usage: wxEC [/h] [/?] [/d] [/i <str>] [/m] [/o <str>] [/p] [/t] [/u] [/v] [/w] [
+/x] input file(s)...
+  /h, --help            show this help message
+  /?, --help            show this help message
+  /d, --details         Show a more detailed usage message
+  /i, --input=<str>     <input path>
+  /m, --mac             force MAC line endings
+  /o, --output=<str>    <output path>
+  /p, --pause           pause at end of compile to allow user to inspect the output
+  /t, --timestamp       skip compile if output files are older than input
+  /u, --unix            force Unix line endings
+  /v, --verbose         be verbose
+  /w, --windows         force DOS/Windows line endings
+  /x, --wxwidgets       add code for wxWidgets
+
+Example:
+The original enum file is translated into the header and code files
+
+    enum EState
+    {
+    Unknown = 0,
+    Solid = 1, // Solid Matter
+    Liquid = 2, // "Liquid Matter "
+    Gas, /* Vapour */
+    };
+
+Header & class file
+=================
+    class EState
+    {
+    public:
+    // EState::Unknown,Solid,Liquid,Gas,
+    enum Enum
+    {
+    Unknown = 0,
+    Solid = 1, // "Solid Matter"
+    Liquid = 2, // "Liquid Matter "
+    Gas, // "Vapour"
+    };
+     
+    Enum operator=(int i);
+    operator int () const;
+     
+    Enum operator=(const char* sz);
+    bool operator==(const char* sz);
+    operator const char* () const;
+     
+    ...
+    };
+     
+    EState::Map_t EState::m_Map[] =
+    {
+    {Unknown, "Unknown"},
+    {Solid, "Solid Matter"},
+    {Liquid, "Liquid Matter "},
+    {Gas, "Vapour"}
+    };
+// ------------------------------- eof ------------------------------
+=================
+and used in this manner:
+    int X;
+    ...
+    EState eState;
+    eState = X;
+    if(eState == EState::Unknown) {...}
+    ...
+    printf("eState is '%s' [%d]", (const char*)eState, eState);
+    ...
+    eState = "Text String";
+    if(eState == EState::Unknown) ...
+    ...
++++++++++++++++++++++++++
