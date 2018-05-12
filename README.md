@@ -20,7 +20,8 @@ wxEC Enum Compiler
 *Purpose: Generate intelligent C++ enumeration classes from standard enum  declarations. This utility scans through files containing standard C++  source code (file which are typically given the suffix .e) for enums  and outputs .cpp and .h files containing a C++ class per enum.*
 
  Note: Line endings are auto-adjusted to the detected OS, but can be overridden.
-## Prerequisites for the wxMS project
+ 
+## Prerequisites for the wxEX project
 
 1. wxWidgets 3.1.0 - compiled with MSVC 2015 for static linking. 
 	Uses the environment variable $(WXWIN_310_2015) = path to the wxWidgets root
