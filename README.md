@@ -21,7 +21,7 @@ wxEC Enum Compiler
 
  Note: Line endings are auto-adjusted to the detected OS, but can be overridden.
  
-## Prerequisites for the wxEX project
+## Prerequisites for the wxEC project
 
 1. wxWidgets 3.1.0 - compiled with MSVC 2015 for static linking. 
 	Uses the environment variable $(WXWIN_310_2015) = path to the wxWidgets root
